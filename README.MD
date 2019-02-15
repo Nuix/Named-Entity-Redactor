@@ -20,7 +20,29 @@ Begin by downloading the latest release of this code.  Extract the contents of t
 - `%appdata%\Nuix\Scripts` - User level script directory
 - `%programdata%\Nuix\Scripts` - System level script directory
 
-[PROJECT_USAGE_SECTIONS]
+## Script Settings
+
+### Main Tab
+
+| Setting | Description |
+|---------|-------------|
+| **Process Properties** | Whether redacted copies should be made for metadata properties. Specific properties scanned can be configure on the **Properties Processed** tab.|
+| **Process Item Content Text** | Whether redacted copies should be made for items' content text. |
+| **Only Record Changes** | Only record custom metadata fields for values in which a redaction was actually performed. |
+| **Redaction Template** | A template used to specify what the replacement value should be in the redacted copy.  The placeholder `{entity_name}` will be replaced with the name of the appropriate named entity.  For example if the template is `[REDACTED {entity_name}]` and an `email` named entity is redacted, the replacement text will be `[REDACTED EMAIL]`. |
+| **Custom Metadata Field Prefix** | Custom metadata fields used to record redacted copies of value will be named either after the property the original value came from or `ContentText` for an item's content text.  This value allows you to specify a prefix to be added to that custom metadata field's name.  For example, for a property named `From`, a prefix of `R_` will yield a custom metadata field being created named `R_From`.  This value can be left blank if you do not wish to have a prefix added to the custom metadata field names. |
+| **Record Redaction Time Stamp** | Determines whether a custom metadata field will be assigned to items which are updated to record when the values were last updated. |
+| **Redaction Time Stamp Field Name** | Named of custom metadata field used to store redaction time stamp when **Record Redaction Time Stamp** is checked. |
+| **Save Redaction Profile to System** | When checked, the script will generate a metadata profile containing derived fields for each metadata property updated.  Each derived field uses "first non-blank" logic, first looking to the custom metadata redacted copy field, then looking to the normal base property value. Due to complications around creating a metadata profile from a script, currently the profile can only be saved to the system level profile store.  On windows this directory is usually `%appdata%\Nuix\Metadata Profiles`.|
+| **Redaction Profile Name** | The name of the metadata profile to create when **Save Redaction Profile to System** is checked.  Cannot conflict with name of existing metadata profiles (script will warn you if this is detected). |
+
+### Entities Processed Tab
+
+On this tab you may select 1 or more named entities to have redactions made for.  At least 1 named entity must be selected.
+
+### Properties Processed Tab
+
+On this tab you may select 1 or more metadata properties to have redactions made for.  When **Process Properties** is checked on the main tab, at least one metadata property from this list must be selected.
 
 ## Cloning this Repository
 

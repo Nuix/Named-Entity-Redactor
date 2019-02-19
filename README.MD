@@ -11,6 +11,48 @@ View the GitHub project [here](https://github.com/Nuix/Named-Entity-Redactor) or
 
 This script generates custom metadata fields with "redacted" versions of metadata property and item text values.  The values redacted are based on named entity matches on items in a case.
 
+Imagine an example item with the following content text and named entity matches.  **Note:** Example data below was generated entirely randomly.
+
+**Content Text**
+
+```
+Hello Von,
+  
+Are we really charging $5.33 for Aerodynamic Paper Plate?  Being made of Wooden that seems too cheap!
+And with that we move on to:
+I acquired the following credit card numbers: 4321246058941234, 4321-319681-51234
+
+
+
+Bailey
+noelia.bailey@fake.com
+408-555-5567
+```
+
+| Entity Type | Matches |
+|-------------|---------|
+| `credit-card-num` | `4321246058941234`, `4321-319681-51234` |
+| `email` | `noelia.bailey@fake.com` |
+| `money` | `$5.33` |
+| `person` | `Von`, `Bailey` |
+| `phone-number` | `408-555-5567` |
+
+This script can create a copy of the content text (stored in a custom metadata field) with the named entity matches redacted like so:
+
+```
+Hello [REDACTED PERSON], 
+  
+Are we really charging [REDACTED MONEY] for Aerodynamic Paper Plate?  Being made of Wooden that seems too cheap! 
+And with that we move on to: 
+I acquired the following credit card numbers: [REDACTED CREDIT-CARD-NUM], [REDACTED CREDIT-CARD-NUM]
+
+[REDACTED PERSON] 
+[REDACTED EMAIL] 
+[REDACTED PHONE-NUMBER]
+```
+
+The script can perform the same process for select metadata properties of items as well.
+
 # Getting Started
 
 ## Setup
@@ -61,7 +103,7 @@ Once you also have a copy of SuperUtilities.jar, make sure to include it in the 
 # License
 
 ```
-Copyright 2018 Nuix
+Copyright 2019 Nuix
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
